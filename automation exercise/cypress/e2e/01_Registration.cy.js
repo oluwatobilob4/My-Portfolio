@@ -3,7 +3,7 @@ describe("Register USer", () => {
     cy.visit("http://automationexercise.com/");
   });
 
-  it.only("Register User with existing email", () => {
+  it("Register User with existing email", () => {
     cy.get("[alt = 'Website for automation practice']").should("be.visible");
     cy.get("[href='/login']")
       .should("be.visible")

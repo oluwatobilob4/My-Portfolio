@@ -58,7 +58,7 @@ describe("Verify The Product Page", () => {
     });
   });
 
-  it.only("View category products", () => {
+  it("View category products", () => {
     cy.get("[href='/products']")
       .should("be.visible")
       .and("contain", "Products")
@@ -89,7 +89,7 @@ describe("Verify The Product Page", () => {
       .and("have.length.greaterThan", 0);
   });
 
-  it.only("View brand products", () => {
+  it("View brand products", () => {
     cy.get("[href='/products']")
       .should("be.visible")
       .and("contain", "Products")
@@ -113,5 +113,37 @@ describe("Verify The Product Page", () => {
       .should("be.visible")
       .and("contain.text", "Brand - Madame Products")
       .and("have.length.greaterThan", 0);
+  });
+
+  it.only("Add a product review", () => {
+    cy.get("[alt = 'Website for automation practice']").should("be.visible");
+    cy.get("[href='/products']")
+      .should("be.visible")
+      .and("contain", "Products")
+      .click();
+    cy.url().should("eq", "https://automationexercise.com/products");
+    cy.get(".title.text-center")
+      .should("be.visible")
+      .and("contain.text", "All Products");
+    cy.get("[href='/product_details/1']")
+      .should("be.visible")
+      .and("have.text", "View Product")
+      .click();
+    cy.get("[href='#reviews']").should("have.text", "Write Your Review");
+    cy.get(".shop-details-tab #review-form").within(() => {
+      cy.get("[id='name']").should("be.empty").type("John Doe");
+      cy.get("[id='email']").should("be.empty").type("john@gmail.com");
+      cy.get("[placeholder='Add Review Here!']")
+        .should("be.empty")
+        .type("This is a test review for this product");
+    });
+    cy.get("[id='button-review']")
+      .should("be.visible")
+      .and("include.text", "Submit")
+      .click();
+    cy.get(".category-tab .alert-success")
+      .should("be.exist")
+      .and("have.css", "color", "rgb(60, 118, 61)")
+      .and("include.text", "Thank you for your review");
   });
 });

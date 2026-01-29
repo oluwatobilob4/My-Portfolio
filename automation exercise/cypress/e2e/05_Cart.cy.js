@@ -1,10 +1,11 @@
 describe("Verify the cart functionality", () => {
   beforeEach(() => {
     cy.visit("http://automationexercise.com/");
+    cy.get("[alt = 'Website for automation practice']").should("be.visible");
   });
 
   it("Add products to cart and verify cart contents", () => {
-    cy.get("[alt = 'Website for automation practice']").should("be.visible");
+    // Navigate to Products page
     cy.get("[href='/products']")
       .should("be.visible")
       .and("contain", "Products")
@@ -75,8 +76,108 @@ describe("Verify the cart functionality", () => {
         .within(() => {
           cy.get(".cart_description").should("contain", item.name);
           cy.get(".cart_price").should("contain", item.price);
-          cy.get(".cart_quantity").should("include.text", item.qty); // Asserting Quantity here!
+          cy.get(".cart_quantity").should("include.text", item.qty);
         });
     });
+  });
+
+  it("Verify Product Quantity in Cart", () => {
+    // Navigate to Products page
+    cy.get("[href='/products']")
+      .should("be.visible")
+      .and("contain", "Products")
+      .click();
+    // Add a product to the cart
+    cy.get(".product-image-wrapper")
+      .eq(0)
+      .within(() => {
+        cy.get(".nav-justified").should("be.visible").click();
+      });
+    cy.url().should("eq", "https://automationexercise.com/product_details/1");
+    cy.get(".product-information")
+      .should("be.visible")
+      .and("contain.text", "Blue Top")
+      .and("contain.text", "Category: Women > Tops")
+      .and("contain.text", "Rs. 500")
+      .and("contain.text", "Availability: In Stock")
+      .and("contain.text", "Condition: New")
+      .and("contain.text", "Brand: Polo");
+    // Change quantity to 4
+    cy.get("[id='quantity']").should("have.value", "1").clear().type("4");
+    // Add to cart
+    cy.get(".cart").should("be.visible").click();
+    // View Cart
+    cy.get(".modal-content").should("be.visible");
+    cy.get(".modal-content h4").should("have.text", "Added!");
+    cy.get(".modal-body>.text-center>[href='/view_cart']")
+      .should("be.visible")
+      .click();
+    // Verify that the quantity is 4 in the cart
+    cy.url().should("eq", "https://automationexercise.com/view_cart");
+    cy.get("#cart_items")
+      .should("be.visible")
+      .and("have.length.greaterThan", 0);
+    cy.get("#cart_info tbody tr .cart_quantity").should("include.text", "4");
+  });
+
+  it("Add to cart from recommended products and verify", () => {
+    // Scroll to Recommended items
+    cy.get(".recommended_items")
+      .scrollIntoView()
+      .invoke("attr", "style", "animation: none; scroll-behavior: auto;")
+      .should("be.visible")
+      .and("include.text", "recommended items")
+      .and("have.length.greaterThan", 0);
+    // Add first recommended product to cart
+    cy.get(".recommended_items .product-image-wrapper")
+      .eq(0)
+      .scrollIntoView()
+      .within(() => {
+        cy.get("[data-product-id='1']").eq(0).click({ force: true });
+      });
+    cy.get(".modal-content").should("be.visible");
+    cy.get(".modal-content h4").should("have.text", "Added!");
+    cy.get("[data-dismiss='modal']").should("be.visible").click();
+    // View Cart
+    cy.get(".navbar-nav [href='/view_cart']").should("be.visible").click();
+    cy.get("#cart_items")
+      .should("be.visible")
+      .and("have.length.greaterThan", 0);
+    cy.get("#cart_info tbody tr").should("have.length", 1);
+  });
+
+  it.only("Remove product from cart and verify", () => {
+    // Add a product to the cart
+    cy.get(".product-image-wrapper")
+      .eq(0)
+      .within(() => {
+        cy.get("[data-product-id='1']").eq(0).should("be.visible").click();
+      });
+    cy.get(".modal-content").should("be.visible");
+    cy.get(".modal-content h4").should("have.text", "Added!");
+    cy.get(".close-modal").should("be.visible").click();
+    // Add another product to the cart
+    cy.get(".product-image-wrapper")
+      .eq(1)
+      .within(() => {
+        cy.get("[data-product-id='2']").eq(0).should("be.visible").click();
+      });
+    cy.get(".modal-content").should("be.visible");
+    cy.get(".modal-content h4").should("have.text", "Added!");
+    cy.get(".modal-body")
+      .find("[href='/view_cart']")
+      .should("be.visible")
+      .click();
+    // Verify both products are in the cart
+    cy.url().should("eq", "https://automationexercise.com/view_cart");
+    cy.get("#cart_info tbody tr").should("have.length", 2);
+    // Remove the first product
+    cy.get("#cart_info tbody tr")
+      .eq(0)
+      .within(() => {
+        cy.get(".cart_quantity_delete>.fa-times").should("be.visible").click();
+      });
+    // Verify only one product remains
+    cy.get("#cart_info tbody tr").should("have.length", 1);
   });
 });
