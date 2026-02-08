@@ -26,6 +26,8 @@
 
 /// <reference types='cypress'/>
 
+// const cypress = require("cypress");
+
 Cypress.Commands.add('loginSession', (username = 'Testilo', password = 'Testing') => {
 	cy.session([username, password], () => {
         cy.visit("/");
@@ -48,3 +50,15 @@ Cypress.Commands.add('loginSession', (username = 'Testilo', password = 'Testing'
 
     
 });
+
+Cypress.Commands.add('verifyProductDetails', () => {
+	cy.get("#tbodyid .card", {timeout: 10000}).should("be.visible").and("have.length.at.least", 1).each(($el)=>{
+            cy.wrap($el).within(()=>{
+                cy.get(".card-title").should("be.visible").and("not.be.empty");
+                cy.get(".card-text").should("be.visible").and("not.be.empty");
+                cy.get(".card-title a").should("be.visible").and("have.attr", "href").and("include", "prod.html?idp_=");
+                cy.get(".card-block h5").should("be.visible").and("not.be.empty");
+                cy.get(".card-img-top").should("be.visible").and("have.attr", "src").and("include", "imgs/");
+            })
+        });
+})
