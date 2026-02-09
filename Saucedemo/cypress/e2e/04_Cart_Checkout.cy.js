@@ -58,6 +58,34 @@ describe("Cart and Checkout Test", ()=>{
         });
     });
     });
+
+    it("Remove product from cart and verify the cart is updated", () => {
+    // Go to cart and remove products
+    cy.get("#cartur").should("be.visible").click({ force: true });
+    cy.url().should("include", "cart.html");
+    cy.get("#page-wrapper h2")
+      .should("be.visible")
+      .and("include.text", "Products");
+    cy.get("#tbodyid tr").then(($rows) => {
+      const rowCount = $rows.length;
+      // Remove the first product
+      cy.get("#tbodyid tr")
+        .first()
+        .within(() => {
+          cy.get("td")
+            .eq(3)
+            .find("a")
+            .should("be.visible")
+            .and("have.css", "color", "rgb(2, 117, 216)")
+            .and("contain", "Delete")
+            .click({ force: true });
+        });
+      cy.wait(1000); // Wait for cart to update
+      // Verify the product is removed
+      cy.get("#tbodyid tr").should("have.length", rowCount - 1);
+    });
+  });
+
     it("Complete checkout process", ()=>{
         // Go to cart and complete checkout
         cy.get("#cartur").should("be.visible").click({force:true});
