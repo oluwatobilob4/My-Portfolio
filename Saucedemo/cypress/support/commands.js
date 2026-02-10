@@ -86,7 +86,7 @@ Cypress.Commands.add(
           .and("be.empty")
           .type(username, { force: true });
         cy.get("#loginpassword")
-          .click()
+          .click({ force: true })
           .should("be.focused")
           .and("be.empty")
           .type(password);
