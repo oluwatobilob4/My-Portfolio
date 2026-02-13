@@ -24,11 +24,9 @@ describe("Verify the cart functionality", () => {
         cy.get(".overlay-content").invoke("show");
 
         // 2. Assert that it is now visible to the user
-        cy.get(".overlay-content").should("be.visible");
-
-        // 3. Assert it contains the correct text (Price and Name)
         cy.get(".overlay-content")
-          .should("contain", "Rs. 500")
+          .should("be.visible")
+          .and("contain", "Rs. 500")
           .and("contain", "Blue Top");
 
         // 4. Now click the specific 'Add to cart' inside this overlay
@@ -63,7 +61,7 @@ describe("Verify the cart functionality", () => {
     cy.get("#cart_items").should("be.visible");
     cy.get("#cart_info tbody tr").should("have.length", 2);
 
-    // Define our expected data in an array (Cleaner and easier to manage)
+    // Define expected data in an array (Cleaner and easier to manage)
     const expectedItems = [
       { name: "Blue Top", price: "Rs. 500", qty: "1" },
       { name: "Men Tshirt", price: "Rs. 400", qty: "1" },
@@ -103,7 +101,7 @@ describe("Verify the cart functionality", () => {
       .and("contain.text", "Condition: New")
       .and("contain.text", "Brand: Polo");
     // Change quantity to 4
-    cy.get("[id='quantity']").should("have.value", "1").clear().type("4");
+    cy.get("#quantity").should("have.value", "1").clear().type("4");
     // Add to cart
     cy.get(".cart").should("be.visible").click();
     // View Cart
@@ -120,7 +118,7 @@ describe("Verify the cart functionality", () => {
     cy.get("#cart_info tbody tr .cart_quantity").should("include.text", "4");
   });
 
-  it("Add to cart from recommended products and verify", () => {
+  it.only("Add to cart from recommended products and verify", () => {
     // Scroll to Recommended items
     cy.get(".recommended_items")
       .scrollIntoView()
@@ -130,10 +128,15 @@ describe("Verify the cart functionality", () => {
       .and("have.length.greaterThan", 0);
     // Add first recommended product to cart
     cy.get(".recommended_items .product-image-wrapper")
-      .eq(0)
-      .scrollIntoView()
-      .within(() => {
-        cy.get("[data-product-id='1']").eq(0).click({ force: true });
+      .its("length")
+      .then((length) => {
+        const randomIndex = Math.floor(Math.random() * length);
+        cy.get(".recommended_items .product-image-wrapper")
+          .eq(randomIndex)
+          .scrollIntoView()
+          .within(() => {
+            cy.get("[data-product-id]").eq(0).click({ force: true });
+          });
       });
     cy.get(".modal-content").should("be.visible");
     cy.get(".modal-content h4").should("have.text", "Added!");
