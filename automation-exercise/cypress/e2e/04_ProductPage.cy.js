@@ -5,10 +5,12 @@ describe("Verify The Product Page", () => {
 
   it("Navigate to Product Page and Verify Products", () => {
     cy.get("[alt = 'Website for automation practice']").should("be.visible");
+    // Navigate to Products page
     cy.get("[href='/products']")
       .should("be.visible")
       .and("contain", "Products")
       .click();
+    // Verify navigation to Products page
     cy.url().should("eq", "https://automationexercise.com/products");
     cy.get(".title.text-center")
       .should("be.visible")
@@ -16,8 +18,10 @@ describe("Verify The Product Page", () => {
     cy.get(".features_items")
       .should("be.visible")
       .and("have.length.greaterThan", 0);
+    // View product details
     cy.get("[href='/product_details/1']").should("be.visible").click();
     cy.url().should("eq", "https://automationexercise.com/product_details/1");
+    // Verify product details
     cy.get(".product-information")
       .should("be.visible")
       .and("contain.text", "Blue Top")
@@ -49,7 +53,6 @@ describe("Verify The Product Page", () => {
       const productName = $el.text().toLowerCase();
       if (keyword === "top") {
         // If we search 'top', we expect the name to have 'top', 't-shirt','shirt', OR 'dress'
-        // We use a regular expression /.../ to check for multiple words at once
         expect(productName).to.match(/top|shirt|dress|t-shirt/);
       } else {
         // For anything else, just check if the name includes the search word
@@ -59,10 +62,12 @@ describe("Verify The Product Page", () => {
   });
 
   it("View category products", () => {
+    // Navigate to Products page
     cy.get("[href='/products']")
       .should("be.visible")
       .and("contain", "Products")
       .click();
+    // Scroll to category section and click
     cy.get(".left-sidebar").contains("h2", "Category").should("be.visible");
     cy.get(".category-products")
       .should("be.visible")

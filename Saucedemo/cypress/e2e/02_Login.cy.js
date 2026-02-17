@@ -2,12 +2,14 @@ const { faker } = require("@faker-js/faker");
 
 describe("Login", () => {
   beforeEach(() => {
+    // Load user data from fixture and visit the homepage before each test
     cy.fixture("users").as("usersData");
     cy.visit("/");
     cy.get(".col-lg-9").should("be.visible").and("have.length.at.least", 1);
   });
 
   it("Login with Invalid Credentials", () => {
+    // Click on the login button to open the login modal
     cy.get(".navbar-collapse .navbar-nav").find("#login2").click();
     cy.get("#logInModal .modal-content")
       .should("be.visible")
@@ -23,6 +25,7 @@ describe("Login", () => {
           .should("be.focused")
           .and("be.empty")
           .type("Testi");
+        // Listen for the alert and assert its text
         cy.on("window:alert", (alertText) => {
           expect(alertText).to.equal("Wrong password.");
         });
@@ -35,6 +38,7 @@ describe("Login", () => {
   });
 
   it("Successful login", () => {
+    // Use the custom login command with valid credentials from the fixture
     cy.get(".navbar-collapse .navbar-nav").find("#login2").click();
     cy.get("@usersData").then((users) => {
       cy.get("#logInModal .modal-content")
@@ -58,7 +62,7 @@ describe("Login", () => {
             .and("have.text", "Log in")
             .click({ force: true });
         });
-
+      // Assert that the welcome message is displayed with the correct username
       cy.get("#nameofuser")
         .should("be.visible")
         .and("have.text", `Welcome ${users.ValidUser.username}`);
@@ -66,10 +70,12 @@ describe("Login", () => {
   });
 
   it("Successful login using the alias method", function () {
+    // Use the custom login command with valid credentials from the fixture using alias
     const username1 = this.usersData.ValidUser.username;
     const password = this.usersData.ValidUser.password;
-    cy.get(".navbar-collapse .navbar-nav").find("#login2").click();
 
+    // Click on the login button to open the login modal
+    cy.get(".navbar-collapse .navbar-nav").find("#login2").click();
     cy.get("#logInModal .modal-content")
       .should("be.visible")
       .and("contain", "Log in")
@@ -93,7 +99,7 @@ describe("Login", () => {
       });
 
     cy.wait(1000);
-
+    // Assert that the welcome message is displayed with the correct username
     cy.get("#nameofuser")
       .should("be.visible")
       .and("have.text", `Welcome ${username1}`);

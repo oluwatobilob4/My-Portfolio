@@ -5,6 +5,7 @@ describe("Login Scenario", () => {
 
   it("Login with invalid credentials", () => {
     cy.get("[alt = 'Website for automation practice']").should("be.visible");
+    // Navigate to Signup/Login page
     cy.get("[href='/login']")
       .should("be.visible")
       .and("contain", "Signup / Login")
@@ -24,6 +25,7 @@ describe("Login Scenario", () => {
       .should("be.visible")
       .and("contain", "Login")
       .click();
+    // Assert the error message is displayed
     cy.contains("p", "Your email or password is incorrect!")
       .should("be.visible")
       .and("have.css", "color", "rgb(255, 0, 0)"); // Asserting the red color too
@@ -31,6 +33,7 @@ describe("Login Scenario", () => {
 
   it("Login with valid credentials", () => {
     cy.get("[alt = 'Website for automation practice']").should("be.visible");
+    // Navigate to Signup/Login page
     cy.get("[href='/login']")
       .should("be.visible")
       .and("contain", "Signup / Login")
@@ -50,6 +53,7 @@ describe("Login Scenario", () => {
       .should("be.visible")
       .and("contain", "Login")
       .click();
+    // Verify user is logged in
     cy.get(":nth-child(10) > a")
       .should("be.visible")
       .and("contain", "Logged in as Test");

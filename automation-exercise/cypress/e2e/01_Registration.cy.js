@@ -35,9 +35,11 @@ describe("Register USer", () => {
     cy.get("[alt = 'Website for automation practice']")
       .should("be.visible")
       .and("have.attr", "src", "/static/images/home/logo.png");
+    // Generate random user details using faker
     const randomName = faker.person.firstName();
     const randomSecondName = faker.person.lastName();
     const randomEmail = faker.internet.email();
+    // Navigate to Signup/Login page
     cy.get("[href='/login']")
       .should("be.visible")
       .and("contain", "Signup / Login")
@@ -58,6 +60,7 @@ describe("Register USer", () => {
       .contains("Signup")
       .and("be.enabled")
       .click();
+    // Fill in the account information form
     cy.get(".login-form>.text-center")
       .should("be.visible")
       .and("contain", "Enter Account Information");
@@ -85,6 +88,7 @@ describe("Register USer", () => {
       .should("be.visible")
       .contains("Create Account")
       .click();
+    // Verify account creation and logged in state
     cy.get("[data-qa='account-created']")
       .should("be.visible")
       .and("contain", "Account Created!");
@@ -112,6 +116,7 @@ describe("Register USer", () => {
     cy.get("[alt = 'Website for automation practice']")
       .should("be.visible")
       .and("have.attr", "src", "/static/images/home/logo.png");
+    // Generate multiple random user details using faker and register them
     for (let i = 0; i <= 5; i++) {
       const randomName = faker.person.firstName();
       const randomSecondName = faker.person.lastName();
@@ -136,6 +141,7 @@ describe("Register USer", () => {
         .contains("Signup")
         .and("be.enabled")
         .click();
+      // Fill in the account information form
       cy.get(".login-form>.text-center")
         .should("be.visible")
         .and("contain", "Enter Account Information");
@@ -169,6 +175,7 @@ describe("Register USer", () => {
         .should("be.visible")
         .contains("Create Account")
         .click();
+      // Verify account creation and logged in state
       cy.get("[data-qa='account-created']")
         .should("be.visible")
         .and("contain", "Account Created!");
@@ -179,6 +186,7 @@ describe("Register USer", () => {
       cy.get(".navbar-nav > :nth-child(10) > a")
         .should("be.visible")
         .and("contain", `Logged in as ${randomName}`);
+      // Logout and clean up for the next iteration
       cy.clearCookies();
       cy.clearLocalStorage({ force: true });
       cy.reload();

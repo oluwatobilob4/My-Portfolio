@@ -89,6 +89,7 @@ describe("Checkout Flow", () => {
         .and("include.text", "Place Order")
         .click();
     });
+    // Checkout/payment page
     cy.contains(".step-one .heading", "Payment").should("be.visible");
     cy.get(".col-md-4 #payment-form").within(() => {
       cy.get("[name='name_on_card']").should("be.empty").type("Test");
@@ -124,22 +125,33 @@ describe("Checkout Flow", () => {
       .should("be.visible")
       .and("contain", "Login")
       .click();
+    // Verify user is logged in
     cy.get(":nth-child(10) > a")
       .should("be.visible")
       .and("contain", "Logged in as Test");
     // Adding products to cart
     cy.get(".product-image-wrapper")
-      .eq(0)
-      .within(() => {
-        cy.get("[data-product-id='1']").eq(0).click();
+      .its("length")
+      .then((length) => {
+        const randomIndex = Math.floor(Math.random() * length);
+        cy.get(".product-image-wrapper")
+          .eq(randomIndex)
+          .within(() => {
+            cy.get(".btn-default").eq(0).click();
+          });
       });
     cy.get(".modal-content .btn-block")
       .should("include.text", "Continue Shopping")
       .click();
     cy.get(".product-image-wrapper")
-      .eq(1)
-      .within(() => {
-        cy.get("[data-product-id='2']").eq(0).click();
+      .its("length")
+      .then((length) => {
+        const secondrandomIndex = Math.floor(Math.random() * length);
+        cy.get(".product-image-wrapper")
+          .eq(secondrandomIndex)
+          .within(() => {
+            cy.get(".btn-default").eq(0).click();
+          });
       });
     cy.get(".modal-content .btn-block")
       .should("include.text", "Continue Shopping")
