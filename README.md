@@ -1,4 +1,4 @@
-👋 Hi, I’m Oluwatobilob – Mid-Level QA Engineer
+Hi, I’m Oluwatobi – Mid-Level QA Engineer
 
 I am a detail-oriented Quality Assurance Engineer with over 4 years of experience in software testing across web applications and APIs. I specialize in manual testing, functional validation, API testing, and automation testing using Cypress + JavaScript.
 
@@ -26,8 +26,8 @@ Documentation: Test Cases, Bug Reports, Test Summary Reports
 
 Version Control: Git & GitHub
 
-📂 Projects
-🛒 GreenKart — E-Commerce Web Testing
+ Projects
+ GreenKart — E-Commerce Web Testing
 
 Automated test suite for the GreenKart e-commerce application covering key user flows such as product search, cart management, and checkout.
 
@@ -35,7 +35,7 @@ Framework: Cypress + JavaScript
 
 Focus areas: Functional testing, UI validation, end-to-end flows
 
-🧪 Saucedemo — Automation Practice
+Saucedemo — Automation Practice
 
 Test automation project built on the Sauce Labs demo application, covering login scenarios, product sorting, and cart functionality.
 
@@ -43,7 +43,7 @@ Framework: Cypress + JavaScript
 
 Focus areas: Login validation, inventory page, checkout workflows
 
-⚙️ Automation Exercise — Full Flow Testing
+ Automation Exercise — Full Flow Testing
 
 Comprehensive test coverage for the Automation Exercise web application, including user registration, login, and product browsing.
 
@@ -59,11 +59,11 @@ Tool: Postman
 
 Focus areas: CRUD operations, status code validation, response schema validation, environment variable management
 
-🧾 Test Case Documentation
+Test Case Documentation
 
 This portfolio demonstrates structured and professional QA documentation practices.
 
-✔️ Test Case Design
+ Test Case Design
 
 Test cases are written with clear structure, including:
 
@@ -91,7 +91,7 @@ Negative Testing
 
 Positive Flow Validation
 
-🐞 Bug Reporting
+Bug Reporting
 
 Defects are documented with clarity and reproducibility, including:
 
@@ -107,7 +107,7 @@ Screenshots or logs (where applicable)
 
 My bug reports are structured to help developers quickly understand, reproduce, and resolve issues efficiently.
 
-📊 Test Reports
+ Test Reports
 
 Test execution reports summarize:
 
@@ -123,7 +123,7 @@ Release readiness insights
 
 This demonstrates not just testing execution, but analytical thinking around product quality and risk assessment.
 
-🎯 Professional Strengths
+ Professional Strengths
 
 Strong analytical and problem-solving skills
 
@@ -133,7 +133,7 @@ Ability to manage multiple testing cycles effectively
 
 Deep focus on product quality and user experience
 
-📫 Contact
+ Contact
 
 If you’d like to discuss any of these projects or opportunities:
 
