@@ -29,6 +29,8 @@ Real-world products I've tested in professional environments across fintech, pay
 
 **[Kandrit](https://kandrit.com)** — A real-time competitive quiz platform where users participate in live tournament campaigns, earn cash prizes, and use winnings to pay bills or withdraw to bank accounts. Tested real-time quiz gameplay, leaderboard accuracy, campaign logic (including Knockout and Private modes), prize distribution, payment integrations, and user account flows.
 
+**[Patient Talker](https://www.patienttalker.com)** — A HIPAA-compliant health-tech app that helps patients prepare for, record, and review doctor appointments, with AI-generated visit summaries, medication tracking, calendar sync, and secure sharing with family and caregivers. Tested appointment recording flows, AI summary accuracy, data security and encryption compliance, symptom and medication tracking, calendar integration, secure sharing functionality, and cross-platform behaviour across iOS and Android.
+
 ---
 
 # Demo Projects
