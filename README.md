@@ -1,4 +1,4 @@
-# Hi, I'm Oluwatobi — Mid-Level QA Engineer
+# Hi, I'm Oluwatobi — QA Engineer
 Detail-oriented QA Engineer with 4+ years of experience testing web applications and APIs. 
 I specialize in manual testing, functional validation, API testing, and test automation using Cypress + JavaScript.
 This portfolio showcases live projects, demo projects, automation frameworks, API collections, 
